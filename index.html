@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<title>ソウル 2026.10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+
+<style>
+  /* ── 色はしおり(PPTX)から採取。新しい色は作っていない ── */
+  :root {
+    --ground:   #faf4e8;
+    --card:     #fffcf8;
+    --rule:     #e7dccf;
+    --ink:      #332c26;
+    --muted:    #776b64;
+    --pink:     #d98f8a;
+    --sage:     #9eac91;
+    --blue:     #829ead;
+    --brown:    #92705d;
+    --tint-pink:#f3d4d1;
+    --tint-sage:#dce3d2;
+    --tint-blue:#d9e6eb;
+    --shadow:   0 1px 2px rgba(80,60,40,.06), 0 6px 18px rgba(80,60,40,.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #1d1916;
+      --card:     #262019;
+      --rule:     #3b332b;
+      --ink:      #ece3d6;
+      --muted:    #a2978a;
+      --pink:     #e0a49e;
+      --sage:     #a9b79c;
+      --blue:     #93aebc;
+      --brown:    #bd937a;
+      --tint-pink:#432e2c;
+      --tint-sage:#2f382b;
+      --tint-blue:#2a3740;
+      --shadow:   0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground:   #1d1916;
+    --card:     #262019;
+    --rule:     #3b332b;
+    --ink:      #ece3d6;
+    --muted:    #a2978a;
+    --pink:     #e0a49e;
+    --sage:     #a9b79c;
+    --blue:     #93aebc;
+    --brown:    #bd937a;
+    --tint-pink:#432e2c;
+    --tint-sage:#2f382b;
+    --tint-blue:#2a3740;
+    --shadow:   0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 16px 72px; }
+
+  /* ── ヘッダー ── */
+  header.top { padding: 30px 0 18px; }
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .16em;
+    color: var(--brown); margin-bottom: 8px;
+  }
+  h1 {
+    margin: 0; font-size: 40px; font-weight: 900;
+    letter-spacing: .02em; line-height: 1;
+  }
+  .sub { margin-top: 10px; font-size: 13px; color: var(--muted); }
+
+  /* ── 日付タブ ── */
+  nav.days {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--ground) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -16px; padding: 8px 16px;
+    display: flex; gap: 6px; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav.days::-webkit-scrollbar { display: none; }
+  nav.days a {
+    flex: 0 0 auto; min-height: 40px;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 4px 13px; border-radius: 9px;
+    background: var(--card); border: 1px solid var(--rule);
+    color: var(--ink); text-decoration: none;
+    font-size: 12px; font-weight: 700; line-height: 1.25;
+  }
+  nav.days a span { font-size: 10px; font-weight: 500; color: var(--muted); }
+  nav.days a:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ── 各日 ── */
+  section.day { padding-top: 30px; }
+  .dayhead { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .dayhead h2 { margin: 0; font-size: 27px; font-weight: 900; letter-spacing: .02em; }
+  .dayhead .date { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .dayhead .where { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+  .dayrule { height: 2px; margin: 12px 0 4px; border-radius: 2px; }
+  #day0 .dayrule { background: var(--brown); }
+  #day1 .dayrule { background: var(--pink); }
+  #day2 .dayrule { background: var(--sage); }
+  #day3 .dayrule { background: var(--blue); }
+
+  /* ── タイムライン ── */
+  ol.tl { list-style: none; margin: 0; padding: 0; }
+  ol.tl > li {
+    display: grid; grid-template-columns: 62px 1fr; gap: 12px;
+    padding: 14px 0; border-bottom: 1px solid var(--rule);
+  }
+  .t {
+    align-self: start; margin-top: 1px;
+    font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;
+    text-align: center; padding: 5px 0; border-radius: 7px;
+    background: var(--tint-sage); color: var(--ink);
+  }
+  li.hi .t { background: var(--tint-pink); }
+  li.fix .t { background: var(--tint-blue); }
+  /* 自由に使える時間は、時刻ではなく「幅」で見せる */
+  ol.tl > li.free { grid-template-columns: 1fr; gap: 0; }
+  .freehead { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-bottom: 7px; }
+  .span {
+    font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums;
+    padding: 5px 11px; border-radius: 7px;
+    background: var(--tint-blue); color: var(--ink);
+  }
+  .dur { font-size: 12px; font-weight: 700; color: var(--brown); }
+  .b h3 { margin: 0; font-size: 16px; font-weight: 700; line-height: 1.4; text-wrap: balance; }
+  .b p { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+  a.chip {
+    min-height: 34px; display: inline-flex; align-items: center;
+    padding: 0 11px; border-radius: 999px;
+    border: 1px solid var(--rule); background: var(--card);
+    color: var(--brown); text-decoration: none;
+    font-size: 12px; font-weight: 700;
+  }
+  a.chip:hover { border-color: var(--brown); }
+  a.chip:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ── 差し込みカード ── */
+  .box {
+    margin: 12px 0 0; padding: 14px 16px;
+    background: var(--card); border: 1px solid var(--rule); border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+  .box h4 {
+    margin: 0 0 10px; font-size: 11px; font-weight: 700;
+    letter-spacing: .12em; color: var(--brown);
+  }
+  ul.shops { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 11px; }
+  ul.shops .nm { font-size: 14px; font-weight: 700; }
+  ul.shops .mn { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .rule-note { margin: 12px 0 0; padding-top: 11px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  @media (max-width: 420px) { .split { grid-template-columns: 1fr; } }
+  .team { padding: 13px 14px; border-radius: 12px; background: var(--card); border: 1px solid var(--rule); }
+  .team .who2 { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--brown); }
+  .team .nm { margin-top: 3px; font-size: 16px; font-weight: 700; }
+  .team .mn { margin-top: 5px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* 動かせないものだけに付ける印 */
+  .must {
+    display: inline-block; margin-left: 7px; vertical-align: 2px;
+    font-size: 10px; font-weight: 700; letter-spacing: .06em;
+    padding: 2px 7px; border-radius: 4px;
+    background: var(--tint-pink); color: var(--ink);
+  }
+
+  .note { margin: 14px 0 0; font-size: 12px; color: var(--muted); }
+
+  /* ── 情報セクション ── */
+  section.info { padding-top: 34px; }
+  section.info > h2 {
+    margin: 0 0 4px; font-size: 21px; font-weight: 900;
+  }
+  section.info > .lead { margin: 0 0 14px; font-size: 12px; color: var(--muted); }
+  .plan { padding: 13px 15px; border-radius: 12px; background: var(--card); border: 1px solid var(--rule); margin-bottom: 9px; }
+  .plan .ttl { font-size: 14px; font-weight: 700; }
+  .plan .ttl b { color: var(--brown); }
+  .plan p { margin: 5px 0 0; font-size: 12px; color: var(--muted); }
+  .money { display: flex; flex-direction: column; gap: 3px; padding: 15px; border-radius: 12px; background: var(--card); border: 1px solid var(--rule); }
+  .money .big { font-size: 28px; font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+  .money .cap { font-size: 12px; color: var(--muted); }
+  .money .each { margin-top: 7px; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  /* ── 便の詳細 ── */
+  .flight { padding: 15px 16px; border-radius: 12px; background: var(--card); border: 1px solid var(--rule); box-shadow: var(--shadow); margin-bottom: 10px; }
+  .flight .fno { display: flex; align-items: baseline; gap: 8px; }
+  .flight .fno b { font-size: 19px; font-weight: 900; letter-spacing: .01em; }
+  .flight .fno span { font-size: 11px; color: var(--muted); }
+  .leg { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-top: 12px; }
+  .leg .pt { display: flex; flex-direction: column; gap: 2px; }
+  .leg .pt.to { text-align: right; }
+  .leg .hh { font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; line-height: 1; }
+  .leg .ap { font-size: 13px; font-weight: 700; }
+  .leg .tm { font-size: 11px; color: var(--muted); }
+  .leg .arrow { color: var(--brown); font-size: 15px; font-weight: 700; }
+  .seats { margin-top: 13px; padding-top: 11px; border-top: 1px solid var(--rule); display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+  .seats div { text-align: center; }
+  .seats .sn { font-size: 10px; color: var(--muted); }
+  .seats .sv { font-size: 15px; font-weight: 900; font-variant-numeric: tabular-nums; }
+  dl.spec { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px; font-size: 12.5px; }
+  dl.spec dt { color: var(--muted); white-space: nowrap; }
+  dl.spec dd { margin: 0; }
+  .linkgrid { display: flex; flex-wrap: wrap; gap: 7px; }
+  footer { margin-top: 34px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 11px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">2026.10.01 THU — 10.03 SAT</div>
+  <h1>SEOUL</h1>
+  <div class="sub">2泊3日 ／ 4名 ／ Hotel Comochez 明洞</div>
+</header>
+
+<nav class="days" aria-label="日付">
+  <a href="#day0">DAY 0<span>出発の朝</span></a>
+  <a href="#day1">DAY 1<span>明洞</span></a>
+  <a href="#day2">DAY 2<span>ソウルの森・聖水</span></a>
+  <a href="#day3">DAY 3<span>麻浦・金浦</span></a>
+  <a href="#info">情報<span>荷物・費用・確認</span></a>
+</nav>
+
+<!-- ══ DAY 0 ══ -->
+<section class="day" id="day0">
+  <div class="dayhead"><h2>DAY 0</h2><span class="date">10/1 木</span><span class="where">名古屋 → 金浦</span></div>
+  <div class="dayrule"></div>
+  <ol class="tl">
+    <li><div class="t">05:35</div><div class="b"><h3>出発</h3><p>中部国際空港まで約55km。駐車場からターミナルまで10〜15分</p></div></li>
+    <li class="fix"><div class="t">07:00</div><div class="b"><h3>第1ターミナル<span class="must">厳守</span></h3><p>チェックイン 06:30〜07:40</p></div></li>
+    <li class="hi"><div class="t">08:30</div><div class="b"><h3>MM763 出発</h3><p>飛行時間 約2時間</p></div></li>
+    <li><div class="t">10:30</div><div class="b"><h3>金浦空港 到着</h3></div></li>
+  </ol>
+  <p class="note">車の所要時間は目安。駐車場は3日分。</p>
+</section>
+
+<!-- ══ DAY 1 ══ -->
+<section class="day" id="day1">
+  <div class="dayhead"><h2>DAY 1</h2><span class="date">10/1 木</span><span class="where">明洞</span></div>
+  <div class="dayrule"></div>
+  <ol class="tl">
+    <li><div class="t">10:30</div><div class="b"><h3>金浦空港 到着</h3><p>入国審査・荷物受取に1〜1時間半</p></div></li>
+    <li><div class="t">12:00<br>ごろ</div><div class="b"><h3>ホテルに荷物を預ける</h3><p>チェックイン前も6階で預かり可</p>
+      <div class="links"><a class="chip" href="https://naver.me/5K6rtqL6" target="_blank" rel="noopener">ホテル NAVER</a></div></div></li>
+    <li class="hi"><div class="t">13:15</div><div class="b"><h3>昼食　プチョンユッケ 本店</h3><p>広蔵市場</p>
+      <div class="links"><a class="chip" href="https://naver.me/5bCzjO4Q" target="_blank" rel="noopener">NAVER</a></div></div></li>
+    <li class="free"><div class="b">
+      <div class="freehead"><span class="span">15:00 — 19:00</span><span class="dur">およそ4時間</span></div>
+      <h3>明洞 買い物・観光</h3>
+      <p>ホテルのチェックインは15:00から（セルフ）。この時間内に済ませる</p>
+      <div class="box">
+        <h4>まわりたい順</h4>
+        <ul class="shops">
+          <li><span class="nm">CONVERSE 明洞中央店</span><span class="mn">試着と会計で1時間程度</span></li>
+          <li><span class="nm">CHAGEE 市庁店</span><span class="mn">3候補のうち1店のみ</span></li>
+          <li><span class="nm">SPAO 明洞店</span><span class="mn">衣類</span></li>
+          <li><span class="nm">ダイソー／レディヨン薬局</span><span class="mn">同じ通り</span></li>
+        </ul>
+      </div></div></li>
+    <li class="hi"><div class="t">19:30</div><div class="b"><h3>夕食　チョナボッサム</h3><p>昌徳宮・苑西洞</p>
+      <div class="links"><a class="chip" href="https://naver.me/5SKDzO1z" target="_blank" rel="noopener">NAVER</a></div></div></li>
+    <li><div class="t">22:00<br>ごろ</div><div class="b"><h3>ホテルで夜食</h3><p>チキン・トッポッキ。店は当日決定</p></div></li>
+  </ol>
+</section>
+
+<!-- ══ DAY 2 ══ -->
+<section class="day" id="day2">
+  <div class="dayhead"><h2>DAY 2</h2><span class="date">10/2 金</span><span class="where">ソウルの森 → 聖水</span></div>
+  <div class="dayrule"></div>
+  <ol class="tl">
+    <li><div class="t">09:00</div><div class="b"><h3>ホテル出発</h3><p>タクシーで約60分。開店10:00に合わせる</p></div></li>
+    <li class="hi"><div class="t">10:00</div><div class="b"><h3>朝食　Pain de M Mooni</h3><p>狎鴎亭ロデオ駅5番出口から徒歩1分。10:00〜22:00 無休</p>
+      <div class="links"><a class="chip" href="https://naver.me/FfsdH95b" target="_blank" rel="noopener">NAVER</a></div></div></li>
+    <li class="free"><div class="b">
+      <div class="freehead"><span class="span">11:15 — 12:30</span><span class="dur">およそ1時間15分</span></div>
+      <h3>KWANGYA@SEOUL ＋ ソウルの森</h3>
+      <p>狎鴎亭ロデオ → ソウルの森は隣駅。ショップは4番出口直結の地下1階。10:30〜20:00 無休</p>
+      <div class="links"><a class="chip" href="https://www.instagram.com/kwangya_seoul/" target="_blank" rel="noopener">Instagram</a></div></div></li>
+    <li class="hi"><div class="t">12:50</div><div class="b"><h3>昼食　咸興麺屋 狎鴎亭店</h3><p>冷麺</p>
+      <div class="links"><a class="chip" href="https://naver.me/F3EkKbtt" target="_blank" rel="noopener">NAVER</a></div></div></li>
+    <li class="free"><div class="b">
+      <div class="freehead"><span class="span">14:00 — 18:00</span><span class="dur">およそ4時間</span></div>
+      <h3>聖水 ショップ巡り</h3>
+      <p>最後の45分は調整枠</p>
+      <div class="box">
+        <h4>まわりたい順</h4>
+        <ul class="shops">
+          <li><span class="nm">OLIVE YOUNG N 聖水</span><span class="mn">化粧品。1時間以上</span></li>
+          <li><span class="nm">NEWMIX 聖水</span><span class="mn">カフェ用品</span></li>
+          <li><span class="nm">HETRAS 聖水</span><span class="mn">香水</span></li>
+          <li><span class="nm">GOOJOO</span><span class="mn">アクセサリー</span></li>
+          <li><span class="nm">FWEE ／ dasique</span><span class="mn">化粧品。時間があれば。カフェは利用しない</span></li>
+        </ul>
+        <p class="rule-note">OLIVE YOUNGは短縮しない。遅れた場合はFWEE・dasiqueを短縮する。</p>
+      </div></div></li>
+    <li class="fix"><div class="t">18:10</div><div class="b"><h3>2組に分かれて夕食</h3><p>合流はホテル。入退店をグループLINEへ</p>
+      <div class="split">
+        <div class="team"><div class="who2">A ・ 2名</div><div class="nm">馬場畜産物市場</div><div class="mn">18:30ごろ〜<br>肉を買い食堂へ持ち込む</div>
+          <div class="links"><a class="chip" href="https://naver.me/G8fi46km" target="_blank" rel="noopener">NAVER</a></div></div>
+        <div class="team"><div class="who2">B ・ 2名</div><div class="nm">オダリジプ</div><div class="mn">18:50ごろ〜<br>明洞駅5番出口から217m。24:00まで営業。ホテルへは徒歩圏</div><div class="links"><a class="chip" href="https://naver.me/FbOnQlOd" target="_blank" rel="noopener">NAVER</a><a class="chip" href="tel:+8227786769">02-778-6769</a></div></div>
+      </div></div></li>
+    <li><div class="t">21:00<br>ごろ</div><div class="b"><h3>ホテルで合流</h3></div></li>
+  </ol>
+</section>
+
+<!-- ══ DAY 3 ══ -->
+<section class="day" id="day3">
+  <div class="dayhead"><h2>DAY 3</h2><span class="date">10/3 土</span><span class="where">麻浦 → 金浦</span></div>
+  <div class="dayrule"></div>
+
+  <ol class="tl">
+    <li><div class="t">09:45</div><div class="b"><h3>チェックアウト</h3><p>荷物は6階に保管</p></div></li>
+    <li class="free"><div class="b">
+      <div class="freehead"><span class="span">10:00 — 12:20</span><span class="dur">およそ2時間</span></div>
+      <h3>明洞 買い足し・お土産</h3>
+      <p>11:00開店の店あり。12:20ごろホテルで荷物回収。パスポート確認</p></div></li>
+    <li class="hi"><div class="t">13:20</div><div class="b"><h3>昼食　ウォルファ食堂 麻浦本店</h3><p>釜蓋サムギョプサル。荷物持参。要予約</p>
+      <div class="links"><a class="chip" href="https://naver.me/Fx2JKGlz" target="_blank" rel="noopener">NAVER</a><a class="chip" href="https://www.catchtable.net/ja-JP" target="_blank" rel="noopener">CatchTable</a></div></div></li>
+    <li class="fix"><div class="t">14:50</div><div class="b"><h3>麻浦駅 → 金浦空港駅<span class="must">厳守</span></h3><p>14:40に店を出る。地下鉄5号線・乗り換えなし・約35分</p></div></li>
+    <li class="hi"><div class="t">17:50</div><div class="b"><h3>MM768 出発</h3><p>19:40 中部着</p></div></li>
+  </ol>
+  <p class="note">10/3は土曜＋開天節。韓国の3連休初日で混雑する。</p>
+</section>
+
+<!-- ══ 情報 ══ -->
+<section class="info" id="info">
+  <h2>飛行機</h2>
+  <p class="lead">Peach。中部＝第1ターミナル、金浦＝国際線ターミナル。機材はどちらも A320neo。</p>
+
+  <div class="flight">
+    <div class="fno"><b>MM763</b><span>往路 ・ 10/1 木</span></div>
+    <div class="leg">
+      <div class="pt"><span class="hh">08:30</span><span class="ap">中部</span><span class="tm">第1ターミナル</span></div>
+      <div class="arrow">→</div>
+      <div class="pt to"><span class="hh">10:30</span><span class="ap">金浦</span><span class="tm">国際線ターミナル</span></div>
+    </div>
+    <div class="seats">
+      <div><div class="sn">座席</div><div class="sv">6B</div></div>
+      <div><div class="sn">座席</div><div class="sv">6C</div></div>
+      <div><div class="sn">座席</div><div class="sv">6D</div></div>
+      <div><div class="sn">座席</div><div class="sv">6E</div></div>
+    </div>
+  </div>
+
+  <div class="flight">
+    <div class="fno"><b>MM768</b><span>復路 ・ 10/3 土</span></div>
+    <div class="leg">
+      <div class="pt"><span class="hh">17:50</span><span class="ap">金浦</span><span class="tm">国際線ターミナル</span></div>
+      <div class="arrow">→</div>
+      <div class="pt to"><span class="hh">19:40</span><span class="ap">中部</span><span class="tm">第1ターミナル</span></div>
+    </div>
+    <div class="seats">
+      <div><div class="sn">座席</div><div class="sv">24B</div></div>
+      <div><div class="sn">座席</div><div class="sv">24C</div></div>
+      <div><div class="sn">座席</div><div class="sv">24D</div></div>
+      <div><div class="sn">座席</div><div class="sv">24E</div></div>
+    </div>
+  </div>
+
+  <div class="plan">
+    <dl class="spec">
+      <dt>運賃タイプ</dt><dd>スタンダード</dd>
+      <dt>チェックイン</dt><dd>国際線は出発の <b>120分前〜50分前</b><br>往路 06:30〜07:40 ／ 復路 15:50〜17:00</dd>
+      <dt>預け荷物</dt><dd>1人1個ぶん込み。1個20kgまで・3辺203cmまで</dd>
+      <dt>機内持込</dt><dd>1人2個まで・合計7kgまで・3辺115cm以内<br>免税店で買ったものも重さに入る</dd>
+    </dl>
+  </div>
+
+  <h2 style="margin-top:30px;">荷物の預け先</h2>
+  <p class="lead">最終日、ウォルファ食堂へスーツケースを持って入れなかったときの順番。</p>
+  <div class="plan"><div class="ttl"><b>PLAN A</b>　ウォルファ食堂へ持参</div><p>入店時にスタッフへ置き場所を確認。店内保管の可否は未確認。</p></div>
+  <div class="plan"><div class="ttl"><b>PLAN B</b>　Bounce 麻浦駅</div><p>68 Mapo-daero 1F ／ 麻浦駅から徒歩約5分。土曜 10:00–16:00・₩5,200〜／バッグ／日（要予約）。営業時間は前日に確認。</p></div>
+  <div class="plan"><div class="ttl"><b>PLAN C</b>　孔徳駅ロッカー</div><p>大型 50×90×60cm ／ 週末 ₩6,100〜（4時間目安）。満室・サイズ不足の可能性あり。</p></div>
+
+  <h2 style="margin-top:30px;">交通費の目安</h2>
+  <p class="lead">飛行機代を除く。地下鉄＋必要区間のタクシー。</p>
+  <div class="money">
+    <div class="big">₩160,000 — 260,000</div>
+    <div class="cap">4人合計</div>
+    <div class="each">1人 ₩40,000 — 65,000</div>
+    <div class="cap">多めに見る場合 1人 ₩70,000</div>
+  </div>
+  <p class="note">増えやすいのは、金浦空港→ホテル／狎鴎亭・ソウルの森・聖水の横移動／聖水からの夕食2組の分岐／ホテル→麻浦（荷物あり）。タクシー代は渋滞・車種・深夜割増で変わるので現地表示を優先。</p>
+
+  <h2 style="margin-top:30px;">ホテル</h2>
+  <div class="plan">
+    <div class="ttl">Hotel Comochez 明洞</div>
+    <p>4–6F, 26, Supyo-ro 6-gil, Jung-gu, Seoul　←&nbsp;タクシーで見せる<br>
+      チェックイン 15:00（セルフ・パスワード式）／チェックアウト 11:00<br>
+      荷物はチェックイン前も後も6階の指定場所へ<br>
+      室内は靴を脱ぐ／全館禁煙（4〜6F）／トイレに物を流さない</p>
+    <div class="links"><a class="chip" href="https://naver.me/5K6rtqL6" target="_blank" rel="noopener">NAVER</a><a class="chip" href="https://maps.app.goo.gl/9dZSPFWPwbWe2hqC7" target="_blank" rel="noopener">Google Maps</a></div>
+  </div>
+
+  <h2 style="margin-top:30px;">リンク</h2>
+  <div class="linkgrid">
+    <a class="chip" href="https://naver.me/5K6rtqL6" target="_blank" rel="noopener">ホテル</a>
+    <a class="chip" href="https://naver.me/5bCzjO4Q" target="_blank" rel="noopener">プチョンユッケ</a>
+    <a class="chip" href="https://naver.me/5SKDzO1z" target="_blank" rel="noopener">チョナボッサム</a>
+    <a class="chip" href="https://naver.me/FfsdH95b" target="_blank" rel="noopener">Pain de M Mooni</a>
+    <a class="chip" href="https://www.instagram.com/kwangya_seoul/" target="_blank" rel="noopener">KWANGYA@SEOUL</a>
+    <a class="chip" href="https://naver.me/F3EkKbtt" target="_blank" rel="noopener">咸興麺屋</a>
+    <a class="chip" href="https://naver.me/G8fi46km" target="_blank" rel="noopener">馬場畜産物市場</a>
+    <a class="chip" href="https://naver.me/FbOnQlOd" target="_blank" rel="noopener">オダリジプ</a>
+    <a class="chip" href="https://naver.me/Fx2JKGlz" target="_blank" rel="noopener">ウォルファ食堂</a>
+    <a class="chip" href="https://www.catchtable.net/ja-JP" target="_blank" rel="noopener">CatchTable</a>
+  </div>
+
+  <footer>
+    予約番号・暗証番号はこのページに載せていない。チェックイン時は各自メールを確認。<br>
+    このページは通信がないと開かない。端末に保存しておくと圏外でも見られる。
+  </footer>
+</section>
+
+</div>
+
+<script>
+  // 見えている日付のタブを強調する
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('nav.days a'));
+  var secs = tabs.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var i = secs.indexOf(e.target);
+        tabs.forEach(function (t, n) {
+          var on = n === i;
+          t.style.background = on ? 'var(--tint-pink)' : 'var(--card)';
+          t.style.borderColor = on ? 'var(--pink)' : 'var(--rule)';
+        });
+      });
+    }, { rootMargin: '-80px 0px -70% 0px' });
+    secs.forEach(function (s) { if (s) io.observe(s); });
+  }
+</script>
+
+</body>
+</html>
